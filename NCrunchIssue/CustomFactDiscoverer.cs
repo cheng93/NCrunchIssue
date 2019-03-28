@@ -16,11 +16,25 @@
         public IEnumerable<IXunitTestCase> Discover(ITestFrameworkDiscoveryOptions discoveryOptions, ITestMethod testMethod,
             IAttributeInfo factAttribute)
         {
-            yield return new CustomTestCase(
-                this.diagnosticMessageSink,
-                discoveryOptions.MethodDisplayOrDefault(),
-                discoveryOptions.MethodDisplayOptionsOrDefault(),
-                testMethod);
+            // Normally I would try and get a environment variable, and it would skip based on the value.
+            // However for the purpose of this example, we will always skip.
+
+            if (true)
+            {
+                yield return new SkipTestCase(
+                    this.diagnosticMessageSink,
+                    discoveryOptions.MethodDisplayOrDefault(),
+                    discoveryOptions.MethodDisplayOptionsOrDefault(),
+                    testMethod);
+            }
+            else
+            {
+                yield return new XunitTestCase(
+                    this.diagnosticMessageSink,
+                    discoveryOptions.MethodDisplayOrDefault(),
+                    discoveryOptions.MethodDisplayOptionsOrDefault(),
+                    testMethod);
+            }
         }
     }
 }
